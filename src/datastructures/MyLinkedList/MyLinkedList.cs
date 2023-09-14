@@ -1,4 +1,6 @@
-﻿namespace AD
+﻿using System.Collections.Generic;
+
+namespace AD
 {
     public partial class MyLinkedList<T> : IMyLinkedList<T>
     {
@@ -7,38 +9,46 @@
 
         public MyLinkedList()
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            first = null;
+            size = 0;
         }
 
         public void AddFirst(T data)
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            var temp = first;
+            first = new MyLinkedListNode<T>
+            {
+                data = data,
+                next = temp
+            };
+
+            size++;
         }
 
         public T GetFirst()
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            if(size == 0)
+                throw new MyLinkedListEmptyException();
+            return first.data;
         }
 
         public void RemoveFirst()
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            if (size == 0)
+                throw new MyLinkedListEmptyException();
+            first = first.next;
+            size--;
         }
 
         public int Size()
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            return size;
         }
 
         public void Clear()
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            first = null;
+            size = 0;
         }
 
         public void Insert(int index, T data)
