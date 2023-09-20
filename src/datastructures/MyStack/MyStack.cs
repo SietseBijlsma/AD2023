@@ -2,25 +2,55 @@ namespace AD
 {
     public partial class MyStack<T> : IMyStack<T>
     {
-        public MyLinkedList<T> list = new MyLinkedList<T>();
+        private MyLinkedList<T> stack;
+
+        public MyStack()
+        {
+            stack = new MyLinkedList<T>();
+        }
+
         public bool IsEmpty()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                stack.GetFirst();
+                return false;
+            }
+            catch (MyLinkedListEmptyException)
+            {
+                return true;
+            }
         }
 
         public T Pop()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var popped = stack.GetFirst();
+                stack.RemoveFirst();
+                return popped;
+            }
+            catch (MyLinkedListEmptyException)
+            {
+                throw new MyStackEmptyException();
+            }
         }
 
         public void Push(T data)
         {
-            throw new System.NotImplementedException();
+            stack.Insert(0, data);
         }
 
         public T Top()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return stack.GetFirst();
+            }
+            catch (MyLinkedListEmptyException)
+            {
+                throw new MyStackEmptyException();
+            }
         }
     }
 }

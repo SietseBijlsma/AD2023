@@ -1,32 +1,66 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace AD
 {
     public partial class MyQueue<T> : IMyQueue<T>
     {
+        private MyLinkedList<T> queue;
+
+        public MyQueue()
+        {
+            queue = new MyLinkedList<T>();
+
+        }
+
         public bool IsEmpty()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                queue.GetFirst();
+                return false;
+            }
+            catch (MyLinkedListEmptyException)
+            {
+                return true;
+            }
         }
 
         public void Enqueue(T data)
         {
-            throw new System.NotImplementedException();
+            var size = queue.Size();
+            queue.Insert(size, data);
         }
 
         public T GetFront()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return queue.GetFirst();
+            }
+            catch (MyLinkedListEmptyException)
+            {
+                throw new MyQueueEmptyException();
+            }
         }
 
         public T Dequeue()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var first = queue.GetFirst();
+                queue.RemoveFirst();
+                return first;
+            }
+            catch (MyLinkedListEmptyException)
+            {
+                throw new MyQueueEmptyException();
+            }
         }
 
         public void Clear()
         {
-            throw new System.NotImplementedException();
+            queue.Clear();
         }
 
     }

@@ -25,6 +25,17 @@ namespace AD
             size++;
         }
 
+        public void AddLast(T data)
+        {
+            var temp = new MyLinkedListNode<T>()
+            {
+                next = null,
+                data = data
+            };
+            first.next = temp;
+            size++;
+        }
+
         public T GetFirst()
         {
             if(size == 0)
@@ -53,14 +64,61 @@ namespace AD
 
         public void Insert(int index, T data)
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            var temp = first;
+
+            if (index > size || index < 0)
+                throw new MyLinkedListIndexOutOfRangeException();
+
+            if (size == 0 || index == 0)
+            {
+                AddFirst(data);
+                return;
+            }
+
+            for (int x = 1; x <= size; x++)
+            {
+                if (x == index)
+                {
+                    var nextNode = new MyLinkedListNode<T>()
+                    {
+                        data = data,
+                    };
+
+                    if (temp.next == null)
+                        nextNode.next = null;
+                    else
+                        nextNode.next = temp.next;
+
+                    temp.next = nextNode;
+                    size++;
+                }
+                else
+                    temp = temp.next;
+            }
         }
 
         public override string ToString()
         {
-            // Write implementation here
-            throw new System.NotImplementedException();
+            var temp = first;
+            string result = "";
+            int count = 0;
+
+            if (size == 0)
+                return "NIL";
+
+            while (temp != null)
+            {
+                if (count == 0)
+                {
+                    result = $"{temp.data}";
+                    count++;
+                }
+                else
+                    result = $"{result},{temp.data}";
+                temp = temp.next;
+            }
+
+            return $"[{result}]";
         }
     }
 }
