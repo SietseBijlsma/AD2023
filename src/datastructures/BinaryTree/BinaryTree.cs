@@ -1,3 +1,5 @@
+using System;
+
 namespace AD
 {
     public partial class BinaryTree<T> : IBinaryTree<T>
@@ -10,12 +12,12 @@ namespace AD
 
         public BinaryTree()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public BinaryTree(T rootItem)
         {
-            throw new System.NotImplementedException();
+            root = new BinaryNode<T>() { data = rootItem };
         }
 
 
@@ -25,7 +27,7 @@ namespace AD
 
         public BinaryNode<T> GetRoot()
         {
-            throw new System.NotImplementedException();
+            return root;
         }
 
         public int Size()
@@ -40,12 +42,12 @@ namespace AD
 
         public void MakeEmpty()
         {
-            throw new System.NotImplementedException();
+            root = null;
         }
 
         public bool IsEmpty()
         {
-            throw new System.NotImplementedException();
+            return root == null;
         }
 
         public void Merge(T rootItem, BinaryTree<T> t1, BinaryTree<T> t2)
@@ -55,17 +57,23 @@ namespace AD
 
         public string ToPrefixString()
         {
-            throw new System.NotImplementedException();
+            if (this.root == null)
+                return "NIL";
+            return this.root.ToPrefixString();
         }
 
         public string ToInfixString()
         {
-            throw new System.NotImplementedException();
+            if (this.root == null)
+                return "NIL";
+            return this.root.ToInfixString();
         }
 
         public string ToPostfixString()
         {
-            throw new System.NotImplementedException();
+            if (this.root == null)
+                return "NIL";
+            return this.root.ToPostfixString();
         }
 
 
@@ -75,17 +83,64 @@ namespace AD
 
         public int NumberOfLeaves()
         {
-            throw new System.NotImplementedException();
+            var leaveCount = 0;
+
+            Traverse(root, (node, _) =>
+            {
+                if (node.left == null && node.right == null)
+                    leaveCount++;
+            });
+
+            return leaveCount;
         }
 
         public int NumberOfNodesWithOneChild()
         {
-            throw new System.NotImplementedException();
+            var nodeCount = 0;
+
+            Traverse(root, (node, _) =>
+            {
+                if (node.left == null ^ node.right == null)
+                    nodeCount++;
+            });
+
+            return nodeCount;
         }
 
         public int NumberOfNodesWithTwoChildren()
         {
-            throw new System.NotImplementedException();
+            var nodeCount = 0;
+
+            Traverse(root, (node, _) =>
+            {
+                if (node.left != null && node.right != null)
+                    nodeCount++;
+            });
+
+            return nodeCount;
+        }
+
+        private void Traverse(BinaryNode<T> root, Action<BinaryNode<T>, int> func, int depth = 0)
+        {
+            if (root == null)
+                return;
+
+            func(root, depth);
+
+            Traverse(root.left, func, depth + 1);
+            Traverse(root.right, func, depth + 1);
+        }
+
+        public T Minvalue()
+        {
+            BinaryNode<T> current = root;
+
+            /* loop down to find the leftmost leaf */
+            while (current.left != null)
+            {
+                current = current.left;
+            }
+            return (current.data);
         }
     }
 }

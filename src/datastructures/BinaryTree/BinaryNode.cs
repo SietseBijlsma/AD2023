@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace AD
 {
     public partial class BinaryNode<T> : IBinaryNode<T>
@@ -20,17 +22,32 @@ namespace AD
         //----------------------------------------------------------------------
         public T GetData()
         {
-            throw new System.NotImplementedException();
+            return data;
         }
 
         public BinaryNode<T> GetLeft()
         {
-            throw new System.NotImplementedException();
+            return left;
         }
 
         public BinaryNode<T> GetRight()
         {
-            throw new System.NotImplementedException();
+            return right;
+        }
+
+        public string ToPrefixString()
+        {
+            return $"[ {this.data} {this.left?.ToPrefixString() ?? "NIL"} {this.right?.ToPrefixString() ?? "NIL"} ]";
+        }
+
+        public string ToInfixString()
+        {
+            return $"[ {this.left?.ToInfixString() ?? "NIL"} {this.data} {this.right?.ToInfixString() ?? "NIL"} ]";
+        }
+
+        public string ToPostfixString()
+        {
+            return $"[ {this.left?.ToPostfixString() ?? "NIL"} {this.right?.ToPostfixString() ?? "NIL"} {this.data} ]";
         }
     }
 }
