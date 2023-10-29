@@ -32,12 +32,26 @@ namespace AD
 
         public int Size()
         {
-            throw new System.NotImplementedException();
+            var size = 0;
+
+            this.Traverse(this.root, (node, depth) => size++);
+
+            return size;
         }
 
         public int Height()
         {
-            throw new System.NotImplementedException();
+            if (this.IsEmpty()) return -1;
+
+            var highest = 0;
+
+            this.Traverse(this.root, (node, depth) =>
+            {
+                if (depth > highest)
+                {
+                    highest = depth;
+                }
+            });
         }
 
         public void MakeEmpty()
