@@ -8,7 +8,9 @@ namespace AD
         public BinaryNode<T> left;
         public BinaryNode<T> right;
 
-        public BinaryNode() : this(default(T), default(BinaryNode<T>), default(BinaryNode<T>)) { }
+        public BinaryNode() : this(default, default, default) { }
+
+        public BinaryNode(T data) : this(data, default, default) { }
 
         public BinaryNode(T data, BinaryNode<T> left, BinaryNode<T> right)
         {

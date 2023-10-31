@@ -52,6 +52,7 @@ namespace AD
                     highest = depth;
                 }
             });
+            return highest;
         }
 
         public void MakeEmpty()
